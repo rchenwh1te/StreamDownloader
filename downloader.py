@@ -7,6 +7,8 @@ import progressbar
 import urllib
 import time
 import threading
+import ffmpeg
+import shutil
 
 def MyFidelio(name, src):
 	def audio_process():
@@ -241,7 +243,7 @@ __________________________________________________
 |----------------------|-------------------------|
 |Author:               |  Reina Chen             |
 |----------------------|-------------------------|
-|Version:              |  1.0.0                  |
+|Version:              |  1.0.1                  |
 |______________________|_________________________|
 
 Thank you for using our software.
@@ -275,14 +277,22 @@ if sel == 0:
 while bool(check):
 	if aud_done == '.' and vid_done == '.':
 		print('merging audio and video...')
-		system("ffmpeg -i video.mp4 -i audio.mp4 -c:v copy -c:a aac '"+name+".mp4'")
+		
+		vid_in = ffmpeg.input('./video.mp4')
+		aud_in = ffmpeg.input('./audio.mp4')
+		
+		ffmpeg.concat(vid_in,aud_in,v=1,a=1).output('../'+name+'.mp4').run
+		
+		#system("ffmpeg -i video.mp4 -i audio.mp4 -c:v copy -c:a aac '"+name+".mp4'")
 
-		print('moving temp file to folder...')
-		system("mv '"+name+".mp4' ../")
+		#print('moving temp file to folder...')
+		#system("mv '"+name+".mp4' ../")
 
 		print('deleting temp directory...')
 		chdir('../')
-		system('rm -rf temp')
+		shutil.rmtree('./temp')
+		rmdir('./temp')
+		#system('rm -rf temp')
 
 		print('''Download completed successfuly.
 		Thank you for using my script.
