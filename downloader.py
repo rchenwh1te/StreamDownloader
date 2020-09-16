@@ -172,8 +172,8 @@ def MyFidelio(name, src):
 
 	global aud_src
 	global vid_src
-	aud_src = src+'/audio/'+aud_opt[a]+'/dash/'
-	vid_src = src+'/video/'+vid_opt[a]+'/dash/'
+	aud_src = 'https://'+src+'/audio/'+aud_opt[a]+'/dash/'
+	vid_src = 'https://'+src+'/video/'+vid_opt[a]+'/dash/'
 
 	download(aud_src+'init.mp4',out='aud_init.mp4',bar='')
 	download(vid_src+'init.mp4',out='vid_init.mp4',bar='')
@@ -260,18 +260,20 @@ Disclaimer: This script has been created specifically for Sites Said in menu. It
 name = input('Enter project name: ')
 mkdir(name)
 chdir(name)
-menu = ['MyFidelio']
+#menu = ['MyFidelio']
 
-for men in range(len(menu)):
+#for men in range(len(menu)):
 	print('['+str(men)+'] '+menu[men])
 
-sel = int(input('Select site by id: '))	
-
-mkdir('temp')
-chdir('temp')
+#sel = int(input('Select site by id: '))	
+#
+#mkdir('temp')
+#chdir('temp')
 src = input('Enter source (see README): ')
 
-if sel == 0:
+CheckSource = src.split('/')
+
+if CheckSource[0] == 'd279gtpur1viyb.cloudfront.net:
 	MyFidelio(name, src)
 
 while bool(check):
