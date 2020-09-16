@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.4.0
+## v1.0.4
 Improved user interface, lighter, uses less resources. Non platform-dependent. Added auto-detect to websites.
 
 ## v1.0.3
