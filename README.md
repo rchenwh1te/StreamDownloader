@@ -19,11 +19,15 @@ cd StreamDownloader
 python3 -m pip install -r requirements.txt
 ```
 
+##Current supported sources:
+1. https://www.myfidelio.at/ (Requires VPN outside Austria, Germany, Switzerland)
+
 ## Usage
 
 ```bash
 python3 downloader.py
 ```
+
 ### Find source:
 1. Open the stream in desktop browser.
 2. Press F12 to open Developer tools.
