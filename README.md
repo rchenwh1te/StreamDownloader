@@ -25,7 +25,7 @@ python3 -m pip install -r requirements.txt
 ## Usage
 
 ```bash
-python3 downloader.py
+python3 main.py
 ```
 
 ### Find source:
