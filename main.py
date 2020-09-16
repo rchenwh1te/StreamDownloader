@@ -26,7 +26,11 @@ Thank you for using our software.
 
 Disclaimer: This script has been created specifically for Sites Said in manual. It hasn't been tested on other streaming sites.
 ''')
-
+if os.path.exists('Download'):
+	os.chdir('Download')
+else:
+	os.mkdir('Download')
+	os.chdir('Download')
 name = input('Enter project name: ')
 os.mkdir(name)
 os.chdir(name)
