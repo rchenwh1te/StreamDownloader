@@ -19,7 +19,7 @@ cd StreamDownloader
 python3 -m pip install -r requirements.txt
 ```
 
-##Current supported sources:
+## Current supported sources:
 1. https://www.myfidelio.at/ (Requires VPN outside Austria, Germany, Switzerland)
 
 ## Usage
