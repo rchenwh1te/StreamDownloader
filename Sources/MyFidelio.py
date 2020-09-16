@@ -208,7 +208,7 @@ def MyFidelio(name, src):
 	video_init_file = open('vid_init.mp4','rb')
 	
 	audio_file.write(audio_init_file.read())
-	video_file.write(video_init_file.read())'
+	video_file.write(video_init_file.read())
 	
 	audio_file.close()
 	video_file.close()
