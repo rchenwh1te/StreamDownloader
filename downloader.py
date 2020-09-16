@@ -14,7 +14,9 @@ def MyFidelio(name, src):
 	def audio_process():
 		global aud_seg
 		audio_init_done = ''
+		print('')
 		print('Initializing audio...')
+		
 		aud_seg = 500
 		ID = str(aud_seg)
 		url = aud_src+'segment_'+ID+'.m4s'
@@ -81,7 +83,9 @@ def MyFidelio(name, src):
 
 	def video_process():
 		global vid_seg
+		print('')
 		print('Initializing video...')
+		
 		video_init_done = ''
 		vid_seg = 500
 		ID_vid = str(vid_seg)
@@ -209,24 +213,24 @@ def MyFidelio(name, src):
 			aud_range
 			vid_range
 		except NameError:
-			JustARandomUselessVariable = ''
+			pass
 		else:
 			todone = ''
 			
 	aseg = aud_range
 	vseg = vid_range
-	print('Pieces to download: Audio -',aseg,'; Video -',vseg)
+	print('Pieces to download: Audio -',aseg,'| Video -',vseg)
 	tot = aseg+vseg
 	print('Total:',tot)
 	total = progressbar.ProgressBar(max_value=aud_range+vid_range)
-	totdone = '.'
 
 	#while bool(totdone):
 	#	try:
 	#		aud_seg_use
+	#totdone = '.'
 	#		iden_use
 	#	except NameError:
-	#		UselessVariable = ''
+	#		pass
 	#	else:
 	#		totdone = ''
 
@@ -263,7 +267,7 @@ chdir(name)
 #menu = ['MyFidelio']
 
 #for men in range(len(menu)):
-	print('['+str(men)+'] '+menu[men])
+#	print('['+str(men)+'] '+menu[men])
 
 #sel = int(input('Select site by id: '))	
 #
@@ -273,10 +277,12 @@ src = input('Enter source (see README): ')
 
 CheckSource = src.split('/')
 
-if CheckSource[0] == 'd279gtpur1viyb.cloudfront.net:
+if CheckSource[0] == 'd279gtpur1viyb.cloudfront.net':
 	MyFidelio(name, src)
 
-while bool(check):
+don = '.'
+
+while bool(don):
 	if aud_done == '.' and vid_done == '.':
 		print('merging audio and video...')
 		
