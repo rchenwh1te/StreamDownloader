@@ -36,7 +36,7 @@ Given url:
 https://www.example.com/random-string/random-string/<video\audio>/...
 
 Copy:
-https://www.example.com/random-string/random-string
+www.example.com/random-string/random-string
 ```
 Paste in script, and the script will do everything else.
 
