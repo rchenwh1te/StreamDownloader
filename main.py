@@ -9,7 +9,7 @@ import time
 import threading
 import ffmpeg
 import shutil
-import Sources.MyFidelio
+import Sources
 
 print('''
 StreamDownloader
@@ -42,7 +42,7 @@ src = input('Enter source (see README): ')
 CheckSource = src.split('/')
 
 if CheckSource[0] == 'd279gtpur1viyb.cloudfront.net':
-	MyFidelio.MyFidelio(name, src)
+	Sources.MyFidelio.MyFidelio(name, src)
 
 print('merging audio and video...')
 vid_in = ffmpeg.input('./video.mp4')
@@ -56,7 +56,7 @@ ffmpeg.concat(vid_in,aud_in,v=1,a=1).output('../'+name+'.mp4').run
 #system("mv '"+name+".mp4' ../")
 
 print('deleting temp directory...')
-chdir('../')
+os.chdir('../')
 shutil.rmtree('./temp')
 rmdir('./temp')
 
