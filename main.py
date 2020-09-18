@@ -50,8 +50,6 @@ aud_in = ffmpeg.input('./audio.mp4')
  
 ffmpeg.concat(vid_in,aud_in,v=1,a=1).output('../'+name+'.mp4').run()
 
-system("ffmpeg -i video.mp4 -i audio.mp4 -c:v copy -c:a aac '"+name+".mp4'")
-
 print('deleting temp directory...')
 
 shutil.rmtree('./temp')
