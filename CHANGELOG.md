@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.0.6
+Made completely platform independent. Compilation errors fixed.
+
 ## v1.0.4
 Improved user interface, lighter, uses less resources. Non platform-dependent. Added auto-detect to websites.
 
