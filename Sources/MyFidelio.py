@@ -9,6 +9,9 @@ import threading
 import ffmpeg
 import shutil
 
+attempts = 0
+maxAttempts = 15
+sleepTime = 2
 
 def MyFidelio(name, src):
 	print('Detected source: https://www.myfidelio.at')
@@ -20,7 +23,7 @@ def MyFidelio(name, src):
 		
 		aud_seg = 500
 		ID = str(aud_seg)
-		url = aud_src+'segment_'+ID+'.m4s'
+		url = str(aud_src+'segment_'+ID+'.m4s')
 		valid = []
 		invalid = []
 		i = 1000
@@ -40,7 +43,7 @@ def MyFidelio(name, src):
 				while aud_seg <= valid[-1]:
 					aud_seg = aud_seg+1
 			ID = str(aud_seg)
-			url = aud_src+'segment_'+ID+'.m4s'
+			url = str(aud_src+'segment_'+ID+'.m4s')
 			try:
 				urllib.request.urlopen(url)
 				valid.append(aud_seg)
@@ -73,19 +76,24 @@ def MyFidelio(name, src):
 		
 		aud_file = open('audio.mp4','ab')
 		#seg_id = 0
-		debug_aud = open('../audio_rec.txt','a')
 		for seg_id in range(aud_seg):
+			aud_size = os.stat('audio.mp4').st_size
 			seg_id_use = seg_id
 			aud_ID = str(seg_id)
-			aud_url = aud_src+'segment_'+aud_ID+'.m4s'
+			aud_url = str(aud_src+'segment_'+aud_ID+'.m4s')
 			while len(aud_ID)<len(str(aud_seg)):
 				aud_ID = '0'+aud_ID
-			download(aud_url, out='aud_seg_'+aud_ID+'.m4s',bar='')
-			inaudsegfile = open('aud_seg_'+aud_ID+'.m4s','rb')
+			aud_outfilename = 'aud_seg_'+aud_ID+'.m4s'
+
+			urllib.request.urlretrieve(str(aud_url),str(aud_outfilename))
+
+			inaudsegfile = open(str('aud_seg_'+aud_ID+'.m4s'),'rb')
 			aud_file.write(inaudsegfile.read())
 			inaudsegfile.close()
-			os.remove('aud_seg_'+aud_ID+'.m4s')
-			debug_aud.write(aud_ID)
+
+			#if totalSize == aud_size+seg_size:
+			#time.sleep(3)
+			os.remove(aud_outfilename)
 						
 		print('Finished downloading audio.')
 		aud_file.close()
@@ -99,7 +107,7 @@ def MyFidelio(name, src):
 		video_init_done = ''
 		vid_seg = 500
 		ID_vid = str(vid_seg)
-		url_vid = vid_src+'segment_'+ID_vid+'.m4s'
+		url_vid = str(vid_src+'segment_'+ID_vid+'.m4s')
 		valid_vid = []
 		invalid_vid = []
 		i_vid = 1000
@@ -118,7 +126,7 @@ def MyFidelio(name, src):
 					vid_seg = vid_seg+1
 					
 			ID_vid = str(vid_seg)
-			vid_url = vid_src+'segment_'+ID_vid+'.m4s'
+			vid_url = str(vid_src+'segment_'+ID_vid+'.m4s')
 			try:
 				urllib.request.urlopen(vid_url)
 			except urllib.error.HTTPError as vid_exception:
@@ -149,7 +157,6 @@ def MyFidelio(name, src):
 		global iden_use
 		global vid_range
 		vid_range = vid_seg+1
-		debug_vid = open('../vid_debug.txt','a')
 		vid_file = open('video.mp4','ab')
 		#iden = 0
 		for iden in range(vid_seg):
@@ -158,12 +165,20 @@ def MyFidelio(name, src):
 			vid_url = vid_src+'segment_'+ID+'.m4s'
 			while len(ID)<len(str(vid_seg)):
 				ID = '0'+ID
-			download(vid_url, out='vid_seg_'+ID+'.m4s',bar='')
-			invidsegfile = open('vid_seg_'+ID+'.m4s','rb')
+			vidoutfilename = 'vid_seg_'+ID+'.m4s'
+			
+			while True:
+				try:
+					urllib.request.urlretrieve(str(vid_url), vidoutfilename)
+				except Exception:
+					pass
+				else:
+					break
+			invidsegfile = open(str('vid_seg_'+ID+'.m4s'),'rb')
 			vid_file.write(invidsegfile.read())
 			invidsegfile.close()
-			os.remove('vid_seg_'+ID+'.m4s')
-			debug_vid.write(ID)
+			#sleep(3)
+			os.remove(vidoutfilename)
 
 		global vid_done
 		vid_file.close()
@@ -201,8 +216,11 @@ def MyFidelio(name, src):
 	audio_file = open('audio.mp4','wb')
 	video_file = open('video.mp4','wb')
 	
-	download(aud_src+'init.mp4',out='aud_init.mp4',bar='')
-	download(vid_src+'init.mp4',out='vid_init.mp4',bar='')
+	#download.Download(aud_src+'init.mp4','aud_init.mp4','aud_init.mp4')
+	#download.Download(vid_src+'init.mp4','aud_init.mp4','aud_init.mp4')
+	
+	download(str(aud_src)+'init.mp4',out='aud_init.mp4',bar='')
+	download((vid_src)+'init.mp4',out='vid_init.mp4',bar='')
 	
 	audio_init_file = open('aud_init.mp4','rb')
 	video_init_file = open('vid_init.mp4','rb')
@@ -213,10 +231,16 @@ def MyFidelio(name, src):
 	audio_file.close()
 	video_file.close()
 	
-	os.system('cat aud_init.mp4 > audio.mp4')
-	os.system('rm -f aud_init.mp4')
-	os.system('cat vid_init.mp4 > video.mp4')
-	os.system('rm -f vid_init.mp4')
+	try:
+		os.remove('aud_init.mp4')
+		os.remove('vid_init.mp4')
+	except Exception:
+		pass
+	
+	#os.system('cat aud_init.mp4 > audio.mp4')
+	#os.system('rm -f aud_init.mp4')
+	#os.system('cat vid_init.mp4 > video.mp4')
+	#os.system('rm -f vid_init.mp4')
 
 	print('')
 	print('Initializing, this may take a while.')
