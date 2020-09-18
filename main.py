@@ -19,7 +19,7 @@ __________________________________________________
 |----------------------|-------------------------|
 |Author:               |  Reina Chen             |
 |----------------------|-------------------------|
-|Version:              |  1.0.4                  |
+|Version:              |  1.0.6                  |
 |______________________|_________________________|
 
 Thank you for using our software.
@@ -47,18 +47,15 @@ if CheckSource[0] == 'd279gtpur1viyb.cloudfront.net':
 print('merging audio and video...')
 vid_in = ffmpeg.input('./video.mp4')
 aud_in = ffmpeg.input('./audio.mp4')
+ 
+ffmpeg.concat(vid_in,aud_in,v=1,a=1).output('../'+name+'.mp4').run()
 
-ffmpeg.concat(vid_in,aud_in,v=1,a=1).output('../'+name+'.mp4').run
-
-#system("ffmpeg -i video.mp4 -i audio.mp4 -c:v copy -c:a aac '"+name+".mp4'")
-
-#print('moving temp file to folder...')
-#system("mv '"+name+".mp4' ../")
+system("ffmpeg -i video.mp4 -i audio.mp4 -c:v copy -c:a aac '"+name+".mp4'")
 
 print('deleting temp directory...')
-os.chdir('../')
+
 shutil.rmtree('./temp')
-rmdir('./temp')
+#os.rmdir('./temp')
 
 print('''Download completed successfuly.
 Thank you for using my script.
