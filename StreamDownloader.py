@@ -70,18 +70,19 @@ while True:
 		vidq = vid_quality.get(values['vid_quality'])
 		src = data.get(name)
 		Sources.MyFidelio.Silent(src,audq,vidq,total_pb,pc)
-		print('Procesing - merging audio and video.')
-		vid_in = ffmpeg.input('./video.mp4')
-		aud_in = ffmpeg.input('./audio.mp4')
-		ff = FFmpeg(
-		inputs={'video.mp4': None, 'audio.mp4': None},
-		outputs={'../'+name+'.mp4': '-c:v copy -c:a aac -loglevel quiet'}
-		)
+		break
+print('Procesing - merging audio and video.')
+vid_in = ffmpeg.input('./video.mp4')
+aud_in = ffmpeg.input('./audio.mp4')
+ff = FFmpeg(
+inputs={'video.mp4': None, 'audio.mp4': None},
+outputs={'../'+name+'.mp4': '-c:v copy -c:a aac -loglevel quiet'}
+)
 
-		ff.run()
-		os.chdir('..')
-		shutil.rmtree('temp')
-		os.chdir('../..')
-		print('Finished downloading '+name+''', You can now go ahead and download more or close the program.
-		Enjoy!
+ff.run()
+os.chdir('..')
+shutil.rmtree('temp')
+	os.chdir('../..')
+	print('Finished downloading '+name+''', You can now go ahead and download more or close the program.
+	Enjoy!
 		Thanks for using my software.''')
