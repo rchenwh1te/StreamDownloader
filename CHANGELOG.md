@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.0.0
+Major changes. Added graphical user interface and opera dataset. Added error handlers.
+
 ## v1.0.6
 Made completely platform independent. Compilation errors fixed.
 

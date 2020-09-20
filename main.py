@@ -10,6 +10,7 @@ import threading
 import ffmpeg
 import shutil
 import Sources
+from ffmpy import FFmpeg
 
 print('''
 StreamDownloader
@@ -19,7 +20,7 @@ __________________________________________________
 |----------------------|-------------------------|
 |Author:               |  Reina Chen             |
 |----------------------|-------------------------|
-|Version:              |  1.0.6                  |
+|Version:              |  2.0.0                  |
 |______________________|_________________________|
 
 Thank you for using our software.
@@ -45,10 +46,15 @@ if CheckSource[0] == 'd279gtpur1viyb.cloudfront.net':
 	Sources.MyFidelio.MyFidelio(name, src)
 
 print('merging audio and video...')
+ 
 vid_in = ffmpeg.input('./video.mp4')
 aud_in = ffmpeg.input('./audio.mp4')
- 
-ffmpeg.concat(vid_in,aud_in,v=1,a=1).output('../'+name+'.mp4').run()
+ff = FFmpeg(
+inputs={'video.mp4': None, 'audio.mp4': None},
+outputs={'../'+name+'.mp4': '-c:v copy -c:a aac -loglevel quiet'}
+)
+
+#system("ffmpeg -i video.mp4 -i audio.mp4 -c:v copy -c:a aac '"+name+".mp4'")
 
 print('deleting temp directory...')
 
