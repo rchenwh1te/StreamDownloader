@@ -11,7 +11,7 @@ Linux users: Debian-based distro (Debian, Ubuntu, Kali, etc.)
 
 2. Run the file:
 
-Windows: Extract zip file and run install.exe as Admin.
+Windows: Extract zip file and run install.bat as Admin.
 
 Linux:
 ```bash
