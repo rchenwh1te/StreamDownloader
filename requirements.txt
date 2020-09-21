@@ -4,5 +4,5 @@ python_utils==2.4.0
 requests==2.23.0
 six==1.15.0
 ffmpy==0.2.3
-progressbar2==2.4
+progressbar2==3.53.1
 PySimpleGUI==4.29.0
