@@ -2,8 +2,8 @@
 
 StreamDownloader is a Python script to download streams. Currently only working on https://www.myfidelio.at; soon going to add other popular websites (Netflix and more).
 ## Reuirements:
-FFmpeg installed in your PATH.
-Python 3 and above.
+Windows users: Python 3 and above.
+Linux users: Debian-based distro (Debian, Ubuntu, Kali, etc.)
 
 ## Installation
 
