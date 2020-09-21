@@ -8,14 +8,17 @@ Linux users: Debian-based distro (Debian, Ubuntu, Kali, etc.)
 ## Installation
 
 1. Download installation file for your platform (Linux\Windows).
+
 2. Run the file:
-  Windows: Extract zip file and run install.exe as Admin.
-  Linux:
-    ```bash
-    cd /path/to/file
-    chmod +x install
-    sudo ./install
-    ```
+
+Windows: Extract zip file and run install.exe as Admin.
+
+Linux:
+```bash
+cd /path/to/file
+chmod +x install
+sudo ./install
+```
 Install location will be user's directory (Windows: C:\Users\user\.StreamDownloader | Linux: /home/user/.StreamDownloader)    
 ## Current supported sources:
 1. https://www.myfidelio.at/
