@@ -7,22 +7,16 @@ Python 3 and above.
 
 ## Installation
 
-Use git to clone the repository:
-
-```bash
-git clone https://github.com/rchenwh1te/StreamDownloader.git
-```
-install required dependencies:
-```bash
-cd StreamDownloader
-pip install -r requirements.txt
-```
-Or:
-```bash
-cd StreamDownloader
-python3 -m pip install -r requirements.txt
-```
-
+1. Download installation file for your platform (Linux\Windows).
+2. Run the file:
+  Windows: Extract zip file and run install.exe as Admin.
+  Linux:
+    ```bash
+    cd /path/to/file
+    chmod +x install
+    sudo ./install
+    ```
+Install location will be user's directory (Windows: C:\Users\user\.StreamDownloader | Linux: /home/user/.StreamDownloader)    
 ## Current supported sources:
 1. https://www.myfidelio.at/
 
@@ -30,12 +24,12 @@ python3 -m pip install -r requirements.txt
 CLI (Console interface):
 
 ```bash
-python3 main.py
+python3 path/to/installation/folder/CLI.py
 ```
 
 GUI (Graphical interface):
 ```bash
-python3 StreamDownloader.py
+Command set during installation process
 ```
 
 ### Find source (Only required in CLI):
