@@ -1,6 +1,6 @@
 # Changelog
 
-## v2.5.0
+## v2.0.5
 Added download location selector. Added install script for easier installation. Made usage simpler by only typing in one command set by user. Made GUI into default.
 
 ## v2.0.0
