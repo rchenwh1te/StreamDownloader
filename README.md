@@ -11,7 +11,7 @@ Linux users: Debian-based distro (Debian, Ubuntu, Kali, etc.)
 
 2. Run the file:
 
-Windows: Extract zip file and run install.bat as Admin.
+Windows: Download StreamDownloader.exe and list.json, and place them in the same folder. Run the exe file, and there youhave it.
 
 Linux:
 ```bash
@@ -23,7 +23,7 @@ Install location will be user's directory (Windows: C:\Users\user\.StreamDownloa
 ## Current supported sources:
 1. https://www.myfidelio.at/
 
-## Usage
+## Usage (Linux)
 CLI (Console interface):
 
 ```bash
