@@ -8,7 +8,8 @@ import threading
 import time
 import shutil
 
-jsondb = open('list.json')
+dbdir = os.path.dirname(os.path.realpath(__file__))
+jsondb = open(dbdir+'/list.json')
 data = json.load(jsondb)
 keys = data.keys()
 headers = []
