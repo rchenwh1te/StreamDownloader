@@ -549,4 +549,4 @@ def Silent(src, aud_q, vid_q, total_pb, percent):
 				percent.update(pc_val)
 				total_pb.update_bar(percentage)
 			break
-			
+		open('done','a').close()
