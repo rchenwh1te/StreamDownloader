@@ -1,5 +1,14 @@
 # Changelog
 
+## v2.2.0
+Fixed bugs, added features, seperated merge classes, made more universal.
+
+## v2.1.5
+Not released. Fixed bugs.
+
+## v2.1.0
+Not released. Fixed bugs, added features.
+
 ## v2.0.5
 Added download location selector. Added install script for easier installation. Made usage simpler by only typing in one command set by user. Made GUI into default.
 
