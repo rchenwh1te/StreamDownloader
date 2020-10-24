@@ -63,6 +63,7 @@ while True:
                         os._exit(0)
                 break
         elif event == 'Start':
+                window.FindElement('Start').Update(disabled=True)
                 path = values['save_path']
                 if path == '':
                         if os.path.exists('Download'):
@@ -94,23 +95,7 @@ while True:
                 audq = aud_quality.get(values['aud_quality'])
                 vidq = vid_quality.get(values['vid_quality'])
                 src = data.get(name)
-                threading.Thread(target=Sources.MyFidelio.Silent,args=(src,audq,vidq,total_pb,pc),daemon=True).start()
-                #break
-                if os.path.isfile('done'):
-                        print('Procesing - merging audio and video.')
-        
-                        ff = FFmpeg(
-                        inputs={'video.mp4': None, 'audio.mp4': None},
-                        outputs={'../../'+name+'.mp4': '-c:v copy -c:a aac -loglevel quiet'}
-                        )
-        
-                        ff.run()
-                        os.chdir('../..')
-                        shutil.rmtree(name)
-                        print('Finished downloading '+name+', You can now go ahead and download more or close the program.')
-                        print('')
-                        print('')
-                        print('Enjoy!')
-                        print('')
-                        print('Thanks for using my software.')
-                        #event = None
+                down = threading.Thread(target=Sources.MyFidelio.Silent,args=(src,audq,vidq,total_pb,pc),daemon=True)
+                down.start()
+                threading.Thread(target=Sources.Merge.merge,args=(down,name,window),daemon=True).start()
+                
