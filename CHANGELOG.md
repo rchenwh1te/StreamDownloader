@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.2.5
+Improved user interface. Removed textual interface to reduce size. Added executable installer for windows.
+
 ## v2.2.0
 Fixed bugs, added features, seperated merge classes, made more universal.
 
