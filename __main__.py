@@ -9,8 +9,8 @@ import time
 import shutil
 import sys
 
-dirname = (os.path.realpath(__file__))
-jsondb = open('Sources/resources/MyFidelio.json')
+dbdir = (os.path.realpath(__file__))
+jsondb = open(dbdir+'Sources/resources/MyFidelio.json')
 data = json.load(jsondb)
 keys = data.keys()
 headers = []
@@ -46,7 +46,7 @@ layout = [  [sg.Column(column0),sg.Column(column1),sg.Column(column2)],
             [sg.Column(footer1),sg.Column(footer2)],
             [sg.Button('Start'), sg.Button('Close')] ]
 
-window = sg.Window('Stream Downloader',layout,icon='Sources/resources/icon.ico')
+window = sg.Window('Stream Downloader',layout,icon=dbdir+'Sources/resources/icon.ico')
 
 window.Finalize()
 
