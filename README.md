@@ -34,22 +34,6 @@ GUI (Graphical interface):
 Command set during installation process
 ```
 
-### Find source (Only required in CLI):
-1. Open the stream in desktop browser.
-2. Press F12 to open Developer tools.
-3. Open "Network" tab.
-4. Play the stream.
-5. Wait for a file name segment* OR init.* to show up, and press its row.
-6. Copy the URL given, like so:
-```html
-Given url:
-https://www.example.com/random-string/random-string/<video\audio>/...
-
-Copy:
-www.example.com/random-string/random-string
-```
-Paste in script, and the script will do everything else.
-
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
