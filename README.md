@@ -7,11 +7,14 @@ Linux users: Debian-based distro (Debian, Ubuntu, Kali, etc.)
 
 ## Installation
 
-1. Download installation file for your platform (Linux\Windows).
+1. Download installation file for your platform:
+
+Linux: install.sh
+Windows: https://sourceforge.net/projects/streamdownloader/files/latest/download
 
 2. Run the file:
 
-Windows: Download StreamDownloader.exe and list.json, and place them in the same folder. Run the exe file, and there youhave it.
+Windows: install the program using the installer.
 
 Linux:
 ```bash
@@ -24,11 +27,6 @@ Install location will be user's directory (Windows: C:\Users\user\.StreamDownloa
 1. https://www.myfidelio.at/
 
 ## Usage (Linux)
-CLI (Console interface):
-
-```bash
-python3 path/to/installation/folder/CLI.py
-```
 
 GUI (Graphical interface):
 ```bash
