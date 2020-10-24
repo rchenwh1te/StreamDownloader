@@ -35,7 +35,7 @@ for key in sorted(keys):
 
 column0 = [[sg.Text('Opera name:')],[sg.Combo(headers,size=(30,1),key='st_name')]]
 column1 = [[sg.Text('Audio resolution:')],[sg.Combo(aud_quality_man,size=(10,1),key='aud_quality')]]
-column2 = [[sg.Text('Video resolution:')],[sg.Combo(vid_quality_man,size=(20,1))]]
+column2 = [[sg.Text('Video resolution:')],[sg.Combo(vid_quality_man,size=(20,1),key='vid_quality')]]
 
 footer1 = [[sg.Text('Progress:'),sg.Text('0% (0 of 0)',key='progress_percent')]]
 footer2 = [[sg.ProgressBar(100,orientation='h',size=(30,20), bar_color=('chartreuse2','white'), key='Progress')]]
