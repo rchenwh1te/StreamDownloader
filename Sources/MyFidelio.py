@@ -21,7 +21,7 @@ def MyFidelio(name, src):
 		global aud_seg
 		audio_init_done = ''
 		print('')
-		print('Initializing audio...')
+		print('Initializing audio...\n')
 		
 		aud_seg = 500
 		ID = str(aud_seg)
@@ -300,7 +300,7 @@ def Silent(src, aud_q, vid_q, total_pb, percent):
 		global aud_seg
 		audio_init_done = ''
 		#print('')
-		print('Initializing audio...')
+		print('Initializing audio...\n')
 		
 		aud_seg = 500
 		ID = str(aud_seg)
@@ -345,11 +345,6 @@ def Silent(src, aud_q, vid_q, total_pb, percent):
 					i = i+1
 			else:
 				valid.append(aud_seg)    
-			#DEBUG: print(aud_seg)
-		#print('Done initializing audio.')
-		#return aud_seg
-		print('')
-		print('')
 		global seg_id
 		global seg_id_use
 		global aud_range
@@ -383,7 +378,7 @@ def Silent(src, aud_q, vid_q, total_pb, percent):
 	def video_process():
 		global vid_seg
 		#print('')
-		print('Initializing video...')
+		print('Initializing video...\n')
 		
 		video_init_done = ''
 		vid_seg = 500
@@ -428,12 +423,6 @@ def Silent(src, aud_q, vid_q, total_pb, percent):
 			else:
 				valid_vid.append(vid_seg)
 			    
-			#DEBUG: print(vid_seg)
-		print('Done initializing video.')
-		
-		#print('')
-		#print('')
-		
 		global iden
 		global iden_use
 		global vid_range
@@ -470,9 +459,6 @@ def Silent(src, aud_q, vid_q, total_pb, percent):
 	
 	audio_file = open('audio.mp4','wb')
 	video_file = open('video.mp4','wb')
-	
-	#download.Download(aud_src+'init.mp4','aud_init.mp4','aud_init.mp4')
-	#download.Download(vid_src+'init.mp4','aud_init.mp4','aud_init.mp4')
 	
 	download(str(aud_src)+'init.mp4',out='aud_init.mp4',bar='')
 	download((vid_src)+'init.mp4',out='vid_init.mp4',bar='')
