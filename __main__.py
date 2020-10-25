@@ -10,7 +10,7 @@ import shutil
 import sys
 
 dbdir = os.path.dirname(os.path.abspath(__file__))
-jsondb = open(dbdir+'/media/MyFidelio.json')
+jsondb = open(dbdir+'/media/MyFidelio.json',encoding='utf-8')
 data = json.load(jsondb)
 keys = data.keys()
 headers = []
