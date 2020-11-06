@@ -1,5 +1,8 @@
 # Changelog
 
+## v2.3.0
+Moved from JSON dataset to a more stable sql database.
+
 ## v2.2.5
 Improved user interface. Removed textual interface to reduce size. Added executable installer for windows.
 
