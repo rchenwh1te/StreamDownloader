@@ -1,5 +1,4 @@
 import PySimpleGUI as sg
-import json
 import Sources
 import os
 import ffmpeg
@@ -8,11 +7,25 @@ import threading
 import time
 import shutil
 import sys
+import sqlite3
 
 dbdir = os.path.dirname(os.path.abspath(__file__))
-jsondb = open(dbdir+'/media/MyFidelio.json',encoding='utf-8')
-data = json.load(jsondb)
-keys = data.keys()
+
+db = sqlite3.connect(dbdir+'/media/database.db')
+sql = db.cursor()
+
+sql.execute('SELECT * FROM myfidelio')
+
+result = sql.fetchall()
+data = [list(i) for i in result]
+
+keys = []
+things = []
+
+for i in data:
+	keys.append(i[0])
+	things.append(i[1])
+
 headers = []
 aud_quality = {
         '128 kbps':'1_stereo_128000',
@@ -30,10 +43,8 @@ vid_quality = {
         'Full HD 1080p (3113 kbps)':'1080_3112960'
         }
 vid_quality_man = ['144p (190 kbps)','288p (381 kbps)','360p (688 kbps)','432p (1098 kbps)','576p (1405 kbps)','HD 720p (2288 kbps)','Full HD 1080p (3113 kbps)']
-for key in sorted(keys):
-        headers.append(key)
 
-column0 = [[sg.Text('Opera name:')],[sg.Combo(headers,size=(30,1),key='st_name')]]
+column0 = [[sg.Text('Opera name:')],[sg.Combo(keys,size=(30,1),key='st_name')]]
 column1 = [[sg.Text('Audio resolution:')],[sg.Combo(aud_quality_man,size=(10,1),key='aud_quality')]]
 column2 = [[sg.Text('Video resolution:')],[sg.Combo(vid_quality_man,size=(20,1),key='vid_quality')]]
 
@@ -74,17 +85,12 @@ while True:
                         path = './Download'
                 else:
                         os.chdir(path)
-                #if os.path.exists('Download'):
-                #       pass
-                #else:
-
-                #       os.mkdir('Download')
-                #os.chdir('Download')
+                
                 name = values['st_name']
                 
                 try:
                         os.mkdir(name)
-                        #shutil.rmtree('temp')
+                        
                 except Exception:
                         pass
                 
@@ -94,7 +100,13 @@ while True:
                 os.chdir('temp')
                 audq = aud_quality.get(values['aud_quality'])
                 vidq = vid_quality.get(values['vid_quality'])
-                src = data.get(name)
+
+                sql.execute('SELECT * FROM myfidelio WHERE name="'+name+'"')
+                source = sql.fetchall()
+                source = [list(i) for i in source]
+                
+                src = source[0][1]
+
                 down = threading.Thread(target=Sources.MyFidelio.Silent,args=(src,audq,vidq,total_pb,pc),daemon=True)
                 down.start()
                 threading.Thread(target=Sources.Merge.merge,args=(down,name,window),daemon=True).start()
