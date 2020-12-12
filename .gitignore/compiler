@@ -1,0 +1,2 @@
+echo '#!/usr/bin/env python3' | cat - StreamDownloader.zip > StreamDownloader
+chmod a+x StreamDownloader
