@@ -10,68 +10,13 @@ import threading
 import ffmpeg
 import shutil
 import PySimpleGUI as sg
-
-attempts = 0
-maxAttempts = 15
-sleepTime = 2
+from . import Merge
 		
-def Silent(src, aud_q, vid_q, total_pb, percent):
-	def audio_process():
-		global aud_seg
-		audio_init_done = ''
-		
-		print('Initializing audio...\n')
-		
-		aud_seg = 500
-		ID = str(aud_seg)
-		url = str(aud_src+'segment_'+ID+'.m4s')
-		valid = []
-		invalid = []
-		i = 1000
-		case = aud_seg
-		if aud_seg == 0:
-			case = 1
-		while True:
-			if i==1000:
-				aud_seg = aud_seg*2
-				
-			elif i ==1:
-				aud_seg = aud_seg+i*3
-				
-			else:
-				aud_seg = aud_seg+1
-			if len(valid) != 0:
-				while aud_seg <= valid[-1]:
-					aud_seg = aud_seg+1
-			ID = str(aud_seg)
-			url = str(aud_src+'segment_'+ID+'.m4s')
-			try:
-				urllib.request.urlopen(url)
-				valid.append(aud_seg)
-			except urllib.error.HTTPError as exception:
-				if aud_seg in invalid:
-					audio_init_done = '.'
-					break
-					
-				else:
-					invalid.append(aud_seg)
-					if i==1000:
-						aud_seg = int(aud_seg/4)*3
-						i = 1
-						
-					else:
-						aud_seg = aud_seg-int(i)
-						
-					i = i+1
-			else:
-				valid.append(aud_seg)    
-		global seg_id
-		global seg_id_use
-		global aud_range
-		aud_range = aud_seg+1
-		
+def Silent(audio_seg, video_seg, src, aud_q, vid_q, total_pb, percent,name,window):
+	def audio_process(aud_seg):
 		aud_file = open('audio.mp4','ab')
-		
+		aud_seg = int(aud_seg)
+		global seg_id_use
 		for seg_id in range(aud_seg):
 			aud_size = os.stat('audio.mp4').st_size
 			aud_ID = str(seg_id)
@@ -92,57 +37,11 @@ def Silent(src, aud_q, vid_q, total_pb, percent):
 		aud_file.close()
 		aud_done = '.'
 
-	def video_process():
-		global vid_seg
-		print('Initializing video...\n')
-		
-		video_init_done = ''
-		vid_seg = 500
-		ID_vid = str(vid_seg)
-		url_vid = str(vid_src+'segment_'+ID_vid+'.m4s')
-		valid_vid = []
-		invalid_vid = []
-		i_vid = 1000
-		while True:
-			if i_vid==1000:
-				vid_seg = vid_seg*2
-				
-			elif i_vid ==1:
-				vid_seg = vid_seg+i*3
-				
-			else:
-				vid_seg = vid_seg+1
-				
-			if len(valid_vid) != 0:
-				while vid_seg <= valid_vid[-1]:
-					vid_seg = vid_seg+1
-					
-			ID_vid = str(vid_seg)
-			vid_url = str(vid_src+'segment_'+ID_vid+'.m4s')
-			try:
-				urllib.request.urlopen(vid_url)
-			except urllib.error.HTTPError as vid_exception:
-				if vid_seg in invalid_vid:
-					video_init_done = '.'
-					break
-				else:
-					invalid_vid.append(vid_seg)
-					if i_vid==1000:
-						vid_seg = int(vid_seg/4)*3
-						i_vid = 1
-						
-					else:
-						vid_seg = vid_seg-int(i_vid)
-						
-					i_vid = i_vid+1
-			else:
-				valid_vid.append(vid_seg)
-			    
-		global iden
-		global iden_use
-		global vid_range
+	def video_process(vid_seg):
+		vid_seg = int(vid_seg)
 		vid_range = vid_seg+1
 		vid_file = open('video.mp4','ab')
+		global iden_use
 		for iden in range(vid_seg):
 			ID = str(iden)
 			vid_url = vid_src+'segment_'+ID+'.m4s'
@@ -193,9 +92,11 @@ def Silent(src, aud_q, vid_q, total_pb, percent):
 	
 	print('')
 	print('Initializing, this may take a while.')
+	
+	print(audio_seg)
 
-	threading.Thread(target=audio_process).start()
-	threading.Thread(target=video_process).start()
+	threading.Thread(target=audio_process,args=(int(audio_seg),)).start()
+	threading.Thread(target=video_process,args=(int(video_seg),)).start()
 
 	global aud_done
 	global vid_done
@@ -215,13 +116,11 @@ def Silent(src, aud_q, vid_q, total_pb, percent):
 
 	while True:
 		try:
-			aud_range
-			vid_range
-		except NameError:
+			vseg = int(audio_seg) #+1
+			aseg = int(video_seg) #+1
+		except Exception:
 			pass
 		else:
-			aseg = aud_seg
-			vseg = vid_seg
 			print('Pieces to download: Audio -',aseg,'| Video -',vseg)
 			tot = aseg+vseg
 			print('Total:',tot)
@@ -233,14 +132,15 @@ def Silent(src, aud_q, vid_q, total_pb, percent):
 				except Exception:
 					pass
 				else:
+					print('Starting download')
+					tdone = seg_id_use+iden_use
+					
+					while tdone<tot:
+						tdone = seg_id_use+iden_use
+						percentage = int((tdone/tot)*100)
+						pc_val = str(percentage)+'% ('+str(tdone)+' of '+str(tot)+')'
+						percent.update(pc_val)
+						total_pb.update_bar(percentage)
 					break
-			tdone = seg_id_use+iden_use
-			
-			while tdone<tot:
-				tdone = seg_id_use+iden_use
-				percentage = int((tdone/tot)*100)
-				pc_val = str(percentage)+'% ('+str(tdone)+' of '+str(tot)+')'
-				percent.update(pc_val)
-				total_pb.update_bar(percentage)
 			break
-			
+	Merge.merge(name,window)

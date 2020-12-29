@@ -1,18 +1,20 @@
-#import os
-#path = os.path.abspath(os.path.join(__file__,os.pardir))
+import os
+path = os.path.abspath(__file__)
 #__import__(path+'/MyFidelio')
 import MyFidelio
 import PySimpleGUI as sg
 
 mftab = MyFidelio.layout
-idktab = [[sg.Text("MOOOOORNIN'!")]]
-group = [[sg.Tab('MyFidelio',mftab),sg.Tab('idk',idktab)]]
+#idktab = [[sg.Text("MOOOOORNIN'!")]]
+group = [[sg.Tab('MyFidelio',mftab)
+#,sg.Tab('idk',idktab)
+]]
 
 layout = [[sg.TabGroup(group,enable_events=True,key='_GROUP_')]]
 
 #print(layout)
 
-window = sg.Window('Test',layout)
+window = sg.Window('StreamDownloader',layout)
 
 names = {'res0':'','res1':'','res2':'','res3':'','res4':'','res5':'','res6':'','res7':'','res8':'','res9':''}
 

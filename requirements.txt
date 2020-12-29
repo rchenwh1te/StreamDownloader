@@ -1,6 +1,6 @@
-wget==3.2
+requests==2.24.0
 ffmpy==0.2.3
+wget==3.2
 ffmpeg==1.4
-requests==2.23.0
 progressbar33==2.4
-PySimpleGUI==4.30.0
+PySimpleGUI==4.32.1

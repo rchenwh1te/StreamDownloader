@@ -9,9 +9,10 @@ import sys
 import sqlite3
 import Sources
 
-#path = os.path.abspath(os.path.join(__file__,os.pardir))
-#__import__('..Sources')
-#dbdir = os.path.dirname(os.path.abspath(__file__))
+path = os.path.abspath(os.path.join(__file__,os.pardir))
+path = os.path.abspath(os.path.join(path,os.pardir))
+#print(path)
+dbdir = os.path.dirname(os.path.abspath(__file__))
 
 ico = b'''iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAALGPC
 /xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJL
@@ -50,8 +51,13 @@ rL8WVoiW3gAAAABJRU5ErkJggg==
 '''
 
 sg.theme('SystemDefaultForReal')
-
-db = sqlite3.connect('media/database.db')
+dbpath = path+'/media/database.db'
+#file_list = os.listdir(path)
+#print(file_list)
+#print(dbpath)
+#f = open(dbpath,'rb')
+#print(f.read())
+db = sqlite3.connect(dbpath)
 sql = db.cursor()
 
 sql.execute('SELECT * FROM myfidelio')
@@ -165,11 +171,11 @@ def start(name,window,total_pb,pc):
                                 source = sql.fetchall()
                                 source = [list(i) for i in source]
                                 
-                                src = source[0][1]
+                                src,aud_seg,vid_seg = source[0][1],source[0][2],source[0][3]
 
-                                down = threading.Thread(target=Sources.MyFidelio.Silent,args=(src,audq,vidq,total_pb,pc),daemon=True)
+                                down = threading.Thread(target=Sources.MyFidelio.Silent,args=(aud_seg,vid_seg,src,audq,vidq,total_pb,pc,name,window),daemon=True)
                                 down.start()
-                                threading.Thread(target=Sources.Merge.merge,args=(down,name,window),daemon=True).start()
+                                #threading.Thread(target=Sources.Merge.merge,args=(down,name,window),daemon=True).start()
                                 
         else:
                 event,values = window.read()
@@ -205,10 +211,12 @@ def start(name,window,total_pb,pc):
                 source = [list(i) for i in source]
                 
                 src = source[0][1]
+                aud_seg = source[0][2]
+                vid_seg = source[0][3]
                 
-                down = threading.Thread(target=Sources.MyFidelio.Silent,args=(src,audq,vidq,total_pb,pc),daemon=True)
+                down = threading.Thread(target=Sources.MyFidelio.Silent,args=(aud_seg,vid_seg,src,audq,vidq,total_pb,pc,name,window),daemon=True)
                 down.start()
-                threading.Thread(target=Sources.Merge.merge,args=(down,name,window),daemon=True).start()
+                #threading.Thread(target=Sources.Merge.merge,args=(down,name,window),daemon=True).start()
                         
                         
 def Search(val):
@@ -216,7 +224,7 @@ def Search(val):
         result = sql.fetchall()
         resultlist = []
         for i in result:
-                n,_ = i
+                n,_,_,_ = i
                 resultlist.append(n)
                 
         if resultlist != None:
