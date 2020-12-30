@@ -8,6 +8,7 @@ import shutil
 import sys
 import sqlite3
 import Sources
+import time
 
 path = os.path.abspath(os.path.join(__file__,os.pardir))
 path = os.path.abspath(os.path.join(path,os.pardir))
@@ -117,7 +118,7 @@ mainCol = [[sg.Column(headerCol)],
            ]
 
 footer1 = [[sg.Text('Progress:'),sg.Text('0% (0 of 0)',key='progress_percent')]]
-footer2 = [[sg.ProgressBar(100,orientation='h',size=(30,20) , key='Progress')]]
+footer2 = [[sg.ProgressBar(100,orientation='h',size=(30,20) , key='Progress'),sg.T('Elapsed: '),sg.T('--:--:--      ',key='elapsed'),sg.T('Remaining:'),sg.T(' --:--:--      ',key='estimated')]]
 #bar_color=('chartreuse2','white')
 
 layout = [  [sg.Column(mainCol),sg.Column(sCol,justification='right')],
@@ -172,8 +173,11 @@ def start(name,window,total_pb,pc):
                                 source = [list(i) for i in source]
                                 
                                 src,aud_seg,vid_seg = source[0][1],source[0][2],source[0][3]
+                                
+                                stime = time.time()
+                                print(stime)
 
-                                down = threading.Thread(target=Sources.MyFidelio.Silent,args=(aud_seg,vid_seg,src,audq,vidq,total_pb,pc,name,window),daemon=True)
+                                down = threading.Thread(target=Sources.MyFidelio.Silent,args=(aud_seg,vid_seg,src,audq,vidq,total_pb,pc,name,window,stime,values,))
                                 down.start()
                                 #threading.Thread(target=Sources.Merge.merge,args=(down,name,window),daemon=True).start()
                                 
@@ -213,8 +217,10 @@ def start(name,window,total_pb,pc):
                 src = source[0][1]
                 aud_seg = source[0][2]
                 vid_seg = source[0][3]
+                stime = time.time()
+                print(stime)
                 
-                down = threading.Thread(target=Sources.MyFidelio.Silent,args=(aud_seg,vid_seg,src,audq,vidq,total_pb,pc,name,window),daemon=True)
+                down = threading.Thread(target=Sources.MyFidelio.Silent,args=(aud_seg,vid_seg,src,audq,vidq,total_pb,pc,name,window,stime,values),daemon=True)
                 down.start()
                 #threading.Thread(target=Sources.Merge.merge,args=(down,name,window),daemon=True).start()
                         

@@ -10,9 +10,12 @@ import threading
 import ffmpeg
 import shutil
 import PySimpleGUI as sg
+import time
+import timeit
 from . import Merge
+from . import eta
 		
-def Silent(audio_seg, video_seg, src, aud_q, vid_q, total_pb, percent,name,window):
+def Silent(audio_seg, video_seg, src, aud_q, vid_q, total_pb, percent,name,window,stime,values):
 	def audio_process(aud_seg):
 		aud_file = open('audio.mp4','ab')
 		aud_seg = int(aud_seg)
@@ -134,10 +137,22 @@ def Silent(audio_seg, video_seg, src, aud_q, vid_q, total_pb, percent,name,windo
 				else:
 					print('Starting download')
 					tdone = seg_id_use+iden_use
+					remaining = {'time':'00:00:00'}
+					previous_p = 0
+					ll = 0
 					
 					while tdone<tot:
+						ctime = time.time()
+						ctime -= stime
+						elapsed = time.strftime('%H:%M:%S',time.gmtime(ctime))
+						#ela = f'Elapsed: {elapsed}'
+						window['elapsed'].update(elapsed)
 						tdone = seg_id_use+iden_use
-						percentage = int((tdone/tot)*100)
+						percentage = int(tdone/tot*100)
+						#print(values)
+						etime = remaining['time']
+						eta_val,previous_p,ll = eta.calculate(s=stime,p=tdone,tot=tot,pr=previous_p,ll=ll,timee=etime,window=window)
+						remaining['time'] = eta_val
 						pc_val = str(percentage)+'% ('+str(tdone)+' of '+str(tot)+')'
 						percent.update(pc_val)
 						total_pb.update_bar(percentage)
