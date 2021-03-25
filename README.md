@@ -27,13 +27,6 @@ Install location will be user's directory (Windows: C:\Users\user\.StreamDownloa
 ## Current supported sources:
 1. https://www.myfidelio.at/
 
-## Usage (Linux)
-
-GUI (Graphical interface):
-```bash
-Command set during installation process
-```
-
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
