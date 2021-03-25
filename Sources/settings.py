@@ -6,8 +6,7 @@ import os
 #path = os.path.abspath(os.path.join(path,os.pardir))
 #####path = os.path.abspath(os.path.join(path,os.pardir))
 #print(path)
-conn = sqlite3.connect(#path+'/'+
-'media/database.db')
+conn = sqlite3.connect('/usr/share/StreamDownloader/media/database.db')
 sql = conn.cursor()
 
 sql.execute('''SELECT count(name) FROM sqlite_master WHERE type='table' AND name='settings' ''')

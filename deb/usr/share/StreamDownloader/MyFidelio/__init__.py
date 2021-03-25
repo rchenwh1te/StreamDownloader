@@ -125,11 +125,12 @@ layout = [  [sg.Column(mainCol),sg.Column(sCol,justification='right')],
             [sg.Column(footer1),sg.Column(footer2)],
             [sg.Button('Start'), sg.Button('Close')] ]
 
-def start(name,window,total_pb,pc):
-        sql.execute('SELECT defdir FROM settings')
-        res = sql.fetchall()
-        data = [list(i) for i in res]
-        defpath = data[0][0]
+sql.execute('SELECT defdir FROM settings')
+res = sql.fetchall()
+data = [list(i) for i in res]
+defpath = data[0][0]
+
+def start(name,window,total_pb,pc,defpath=defpath):
         if name == '':
                 while True:
                         global event,values
@@ -186,14 +187,14 @@ def start(name,window,total_pb,pc):
                 window['Start'].Update(disabled=True)
                 path = values['save_path']
                 if path == '':
-                        if os.path.exists('Download'):
+                        if os.path.exists(defpath):
                                 pass
                         else:
 
-                                os.mkdir('Download')
-                        path = './Download'
+                                os.mkdir(defpath)
+                        path = defpath
                 else:
-                        os.chdir(path)
+                        os.chdir(defpath)
                 
                 
                 try:
