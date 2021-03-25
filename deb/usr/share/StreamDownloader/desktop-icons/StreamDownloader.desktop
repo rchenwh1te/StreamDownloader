@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=4.0
+Type=Application
+Name=StreamDownloader
+Comment=
+Exec=/usr/bin/StreamDownloader
+Icon=/usr/share/StreamDownloader/media/icon.ico
+Path=~
+Terminal=false
+StartupNotify=false

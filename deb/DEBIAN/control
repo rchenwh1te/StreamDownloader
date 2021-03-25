@@ -1,0 +1,11 @@
+Package: streamdownloader
+Source: https://sourceforge.net/projects/streamdownloader/code/
+Version: 4.0
+Architecture: all
+Installed-Size: 174
+Priority: optional
+Maintainer: rchenwh1te <rchenwh1te@users.sourceforge.net>
+Homepage: http://sourceforge.net/p/streamdownloader
+Section: multimedia
+Description: StreamDownloader is a Python script to download web streams.
+Depends: python3, python3-pip

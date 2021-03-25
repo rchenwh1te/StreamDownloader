@@ -1,0 +1,9 @@
+#!/bin/bash
+
+python3 -m pip install -r /usr/share/StreamDownloader/requirements.txt
+chmod a+x /usr/bin/StreamDownloader
+cp /usr/share/StreamDownloader/desktop-icons/StreamDownloader.desktop ~/Desktop/StreamDownloader.desktop
+chmod a+x ~/Desktop/StreamDownloader.desktop
+#touch /home/*/Desktop/StreamDownloader.desktop
+cp -r ~/Desktop/StreamDownloader.desktop /home/*/Desktop
+

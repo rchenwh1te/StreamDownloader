@@ -175,7 +175,6 @@ def start(name,window,total_pb,pc):
                                 src,aud_seg,vid_seg = source[0][1],source[0][2],source[0][3]
                                 
                                 stime = time.time()
-                                print(stime)
 
                                 down = threading.Thread(target=Sources.MyFidelio.Silent,args=(aud_seg,vid_seg,src,audq,vidq,total_pb,pc,name,window,stime,values,))
                                 down.start()
