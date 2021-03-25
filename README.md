@@ -9,7 +9,7 @@ Linux users: Debian-based distro (Debian, Ubuntu, Kali, etc.)
 
 1. Download installation file for your platform:
 
-Linux: install.sh
+Linux: StreamDownloader.deb
 
 Windows: https://sourceforge.net/projects/streamdownloader/files/latest/download
 
