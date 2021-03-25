@@ -8,7 +8,7 @@ import threading
 import shutil
 import sqlite3
 
-conn = sqlite3.connect('database.db')
+conn = sqlite3.connect('/usr/share/StreamDownloader/media/database.db')
 sql = conn.cursor()
 
 sql.execute('SELECT * FROM MyFidelio')

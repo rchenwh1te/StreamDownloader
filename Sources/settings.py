@@ -40,8 +40,7 @@ final = [[sg.Column(settab_textcol),sg.Column(settab_incol)],[sg.B('Apply settin
 
 def apply(#path=path,
 defdir='./Download',deftheme='SystemDefaultForReal'):
-	conn = sqlite3.connect(#path+'/'+
-	'media/database.db')
+	conn = sqlite3.connect('/usr/share/StreamDownloader/media/database.db')
 	sql = conn.cursor()
 	sql.execute('DROP TABLE settings')
 	sql.execute('''CREATE TABLE settings(defdir TEXT,deftheme TEXT)''')

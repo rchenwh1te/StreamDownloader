@@ -52,7 +52,7 @@ rL8WVoiW3gAAAABJRU5ErkJggg==
 '''
 
 #dbpath = path+'/media/database.db'
-dbpath = 'media/database.db'
+dbpath = '/usr/share/StreamDownloader/media/database.db'
 #file_list = os.listdir(path)
 #print(file_list)
 #print(dbpath)
@@ -125,11 +125,12 @@ layout = [  [sg.Column(mainCol),sg.Column(sCol,justification='right')],
             [sg.Column(footer1),sg.Column(footer2)],
             [sg.Button('Start'), sg.Button('Close')] ]
 
-def start(name,window,total_pb,pc):
-        sql.execute('SELECT defdir FROM settings')
-        res = sql.fetchall()
-        data = [list(i) for i in res]
-        defpath = data[0][0]
+sql.execute('SELECT defdir FROM settings')
+res = sql.fetchall()
+data = [list(i) for i in res]
+defpath = data[0][0]
+
+def start(name,window,total_pb,pc,defpath=defpath):
         if name == '':
                 while True:
                         global event,values
@@ -175,7 +176,6 @@ def start(name,window,total_pb,pc):
                                 src,aud_seg,vid_seg = source[0][1],source[0][2],source[0][3]
                                 
                                 stime = time.time()
-                                print(stime)
 
                                 down = threading.Thread(target=Sources.MyFidelio.Silent,args=(aud_seg,vid_seg,src,audq,vidq,total_pb,pc,name,window,stime,values,))
                                 down.start()
@@ -187,14 +187,14 @@ def start(name,window,total_pb,pc):
                 window['Start'].Update(disabled=True)
                 path = values['save_path']
                 if path == '':
-                        if os.path.exists('Download'):
+                        if os.path.exists(defpath):
                                 pass
                         else:
 
-                                os.mkdir('Download')
-                        path = './Download'
+                                os.mkdir(defpath)
+                        path = defpath
                 else:
-                        os.chdir(path)
+                        os.chdir(defpath)
                 
                 
                 try:

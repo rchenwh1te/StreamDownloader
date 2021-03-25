@@ -52,7 +52,7 @@ rL8WVoiW3gAAAABJRU5ErkJggg==
 '''
 
 #dbpath = path+'/media/database.db'
-dbpath = 'media/database.db'
+dbpath = '/usr/share/StreamDownloader/media/database.db'
 #file_list = os.listdir(path)
 #print(file_list)
 #print(dbpath)
